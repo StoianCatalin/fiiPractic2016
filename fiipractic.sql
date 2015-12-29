@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 29 Dec 2015 la 11:49
+-- Generation Time: 29 Dec 2015 la 21:36
 -- Versiune server: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -60,6 +60,7 @@ CREATE TABLE `answers` (
 CREATE TABLE `areas` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
   `icon` varchar(255) NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
@@ -78,6 +79,22 @@ CREATE TABLE `questions` (
   `user` int(11) NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `subareas`
+--
+
+CREATE TABLE `subareas` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `area_id` int(11) NOT NULL,
+  `icon` int(11) NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -111,7 +128,7 @@ CREATE TABLE `users` (
   `nume` varchar(255) NOT NULL,
   `type` tinyint(2) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `adresa` varchar(2) NOT NULL,
+  `adresa` varchar(255) NOT NULL,
   `telefon` varchar(10) NOT NULL,
   `password` varchar(255) NOT NULL,
   `created_at` date NOT NULL,
@@ -125,7 +142,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `nume`, `type`, `email`, `adresa`, `telefon`, `password`, `created_at`, `updated_at`, `remember_token`) VALUES
 (1, 'dasdsadsadsa', 0, 'dsadsadsa@gmail.com', 'ds', '0765434523', '$2y$10$h79Jn.jqofvXtXzm9hN7t.skKi.0AyWJIWT9isJXSd4DfOWUFH//q', '2015-12-28', '2015-12-28', '0FwYu5j8aD4Y8mhQNMfh9gjgi4pqvMYkzQOX6DyowuwOB9XQpv9M9VZ5Kh1G'),
-(2, 'Stoian Catalin', 1, 'stoian.ioan.catalin@gmail.com', 'St', '0765434523', '$2y$10$iT4jekbtxzT0TPewhTGa.OCxV2/P9yqrFg8RK0e1lGZIRmPrsYABC', '2015-12-28', '2015-12-29', 'vLivZiTcC1i4LT045oO45JWuqpXhPe0WlcFVqQD8GvTuS01ciFTCLofO8ka6');
+(2, 'Stoian Catalin', 1, 'stoian.ioan.catalin@gmail.com', 'Stdasdsadas', '076543dsas', '$2y$10$iT4jekbtxzT0TPewhTGa.OCxV2/P9yqrFg8RK0e1lGZIRmPrsYABC', '2015-12-28', '2015-12-29', 'SSBf4RtNY0WoKwXw8yMhiJ0iLb1ZAAYxRMbPLft6xCjku837oMitUPJ6AZsL');
 
 --
 -- Indexes for dumped tables
@@ -153,6 +170,12 @@ ALTER TABLE `areas`
 -- Indexes for table `questions`
 --
 ALTER TABLE `questions`
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `subareas`
+--
+ALTER TABLE `subareas`
   ADD UNIQUE KEY `id` (`id`);
 
 --
@@ -185,6 +208,11 @@ ALTER TABLE `answers`
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `subareas`
+--
+ALTER TABLE `subareas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `trainings`
