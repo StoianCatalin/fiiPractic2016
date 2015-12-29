@@ -15,7 +15,7 @@
     </section>
     <section id="despre">
         <div class="ui container">
-            <div class="ui form warrning changeAccountInfo" style="max-width: 600px;">
+            <div class="ui form warning changeAccountInfo" style="max-width: 600px;">
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="icon user"></i>
