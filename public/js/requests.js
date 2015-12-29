@@ -74,12 +74,6 @@ $(document).on('click', '.changeAccountInfo .submit', function(){
         $.post('/requests/update', {name: name, email: email, address: address, phone: phone, password: password, repeatPassword: repeatPassword}, function(data){
             $('.changeAccountInfo .submit').removeClass('loading');
             if (data=="Modificarea datelor personale a fost efectuata cu succes!") {
-                $('.changeAccountInfo input[name=name]').val("");
-                $('.changeAccountInfo input[name=email]').val("");
-                $('.changeAccountInfo input[name=address]').val("");
-                $('.changeAccountInfo input[name=phone]').val("");
-                $('.changeAccountInfo input[name=password]').val("");
-                $('.changeAccountInfo input[name=repeatPassword]').val("");
                 $('.changeAccountInfo .message.success').html(data);
                 setTimeout(function() {
                     $('.changeAccountInfo .message.success').html("");
