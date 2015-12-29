@@ -1,0 +1,315 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin:auto;
+}
+.clearfloat {
+    clear:both;
+}
+body, html {
+    width: 100%;
+    height: 100%;
+    font-family: 'Oxygen', sans-serif;
+}
+header {
+    position:fixed;
+    background:#fdfbed;
+    height: 55px;
+    width: 100%;
+    z-index: 10000;
+    transition: all .4s ease;
+}
+header.scrolled {
+    background:#fce353;
+}
+header .logo {
+    float:left;
+}
+header .logo img {
+    height: auto;
+    width: 100px;
+    margin-top: 3px;
+}
+#top {
+    width: 100%;
+    padding-top: 55px;
+    background:url(../images/bghome.jpg) no-repeat center center;
+    background-size: cover;
+    background-color:#ffe33e;
+    height: 500px;
+    overflow:hidden;
+}
+.logRegister {
+    float:right;
+    padding-top: 10px;
+}
+.logRegister .ui.button {
+    border-radius: 0 !important;
+    font-family: 'Oxygen', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+}
+header .links {
+    float:left;
+    margin-left: 30px;
+}
+header .links li {
+    list-style-type: none;
+    display:inline-block;
+    height: 55px;
+    width: auto;
+    margin:0;
+    line-height: 55px;
+    padding: 0 10px;
+    transition: all .3s ease;
+}
+header .links li:hover {
+    background:#f8e46c;
+}
+header .links li a {
+    color:#2b2d31;
+    display:block;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+}
+header .responsive-menu {
+    display:none;
+    float:right;
+    position:relative;
+    top: -6px;
+}
+#top .ui.grid > .column:not(.row) {
+    padding-bottom: 0;
+    position:relative;
+}
+#top .vectorGraphic {
+    position:absolute;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    z-index: 0;
+}
+#top .continutGraph {
+    height: 445px;
+    width: 100%;
+    z-index: 1;
+    position:relative;
+}
+#top h2 {
+    color:#fff;
+    font-family: 'Oxygen', sans-serif;
+    font-weight: 400;
+    font-size: 60px;
+    margin-top: 100px;
+    text-align:center;
+}
+#top h3 {
+    color:#fff;
+    font-family: 'Oxygen', sans-serif;
+    font-weight: 300;
+    font-size: 40px;
+    text-align:center;
+    margin-top: -35px;
+}
+#despre {
+    padding: 30px;
+}
+#despre h2 {
+    font-family: 'Oxygen', sans-serif;
+    font-weight: 300;
+    text-align:center;
+}
+#parteneri {
+    padding: 30px;
+    text-align: center;
+    background:#F9F9F9;
+}
+footer {
+    background:#252830;
+    width: 100%;
+    padding: 10px;
+    text-align:center;
+    color:#fff;
+    font-size: 13px;
+    min-height: 30px;
+}
+.loginRegister {
+    width: 100%;
+    background: url(../images/bgpage.png) repeat;
+    padding-top: 30px;
+}
+.center {
+    text-align:center;
+    padding-top: 20px;
+}
+.loginRegister .logo {
+    float:none;
+    text-align:center;
+}
+.loginRegister .container {
+    max-width: 800px;
+}
+.loginRegister .ui.segment {
+    min-height: 300px;
+}
+.settings {
+    float:right;
+    padding-top: 7px;
+}
+#top.nonIndex {
+    height: 200px;
+    background:url(../images/bg.png) repeat;
+    position:relative;
+    background-color:#ffe33e;
+}
+#top.nonIndex .continutGraph {
+    height: 150px;
+    width: 50%;
+}
+#top.nonIndex .vectorGraphic {
+    bottom: 0;
+}
+#top h1 {
+    font-weight: 300;
+    text-align:center;
+    color:#272f2d;
+    font-size: 35px;
+    font-family: 'Oxygen', sans-serif;
+}
+.rightFloat {
+    float:right;
+}
+.leftFloat {
+    float:left;
+}
+#despre .ui.cards > .card {
+    width: 23%;
+}
+.arie {
+    width: 100%;
+    height: auto;
+    padding: 30px;
+    background:#ffe33e;
+    text-align:center;
+    transition: all .3s ease;
+    border-radius: 3px;
+}
+.arie i {
+    font-size: 60px;
+}
+.arie:hover {
+    background:#097e79;
+    color:#fff;
+}
+.ariiStudiu a {
+    color:#272f2d;
+}
+#despre .centered {
+    text-align:center;
+}
+footer a {
+    margin-top: 5px;
+    display:inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+#despre .buttons .button {
+    margin-top: 10px;
+}
+.questionTab {
+    float:left;
+    width: 25%;
+    background:url(../images/bgpage.png) repeat;
+    border-radius: 6px;
+}
+.questionTab li {
+    color:#2d94f4;
+    cursor:pointer;
+    text-align:left;
+    padding: 0 10px;
+    min-height: 40px;
+    line-height: 40px;
+    width: 100%;
+    list-style-type: none;
+}
+.questionTab li a:hover {
+    text-decoration: underline;
+}
+.questionTab li ul li {
+    width: 100%;
+    padding-left: 30px;
+}
+.questions {
+    float:right;
+    width: 75%;
+    padding: 30px;
+}
+.questions h2.ui.header {
+    color:#2c85d8;
+    text-align:left;
+}
+.que {
+    padding: 20px;
+}
+.que span {
+    color: #2c85d8;
+    font-size: 17px;
+}
+#mainPanel .three.wide.column {
+    padding-bottom: 0;
+}
+#mainPanel .panel {
+    width: 200px;
+    border-radius: 0;
+    margin:0;
+    position:fixed;
+    top:0;
+    left: 0;
+    z-index: 1000000;
+}
+.intrebare {
+    margin: 30px 0;
+}
+#mainPanel .panel .logo {
+    text-align:center;
+}
+#mainPanel .thirteen.wide.column {
+    padding: 30px;
+}
+#mainPanel .thirteen.wide.column .segment {
+    min-height: 500px;
+}
+.registerIndividual .message, .loginIndividual .message {
+    text-align:center;
+}
+.changeAccountInfo {
+    max-width: 600px;
+}
+.changeAccountInfo span {
+    color:#8a8a8a;
+    font-size: 12px;
+}
+@media (max-width: 800px) {
+    header .links, header .logRegister {
+        display:none;
+    }
+    header .responsive-menu {
+        display:block;
+    }
+    #top {
+        padding-top: 100px;
+    }
+    #top .continutGraph {
+        height: 200px;
+    }
+    header .settings {
+        display:none;
+    }
+    .questionTab {
+        display:none;
+    }
+    .questions {
+        width: 100%;
+    }
+}
