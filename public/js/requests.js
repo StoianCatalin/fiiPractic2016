@@ -82,7 +82,7 @@ $(document).on('click', '.changeAccountInfo .submit', function(){
                 $('.changeAccountInfo input[name=repeatPassword]').val("");
                 $('.changeAccountInfo .message.success').html(data);
                 setTimeout(function() {
-                    window.location.href="/";
+                    $('.changeAccountInfo .message.success').html("");
                 }, 3000);
             }
             else {
