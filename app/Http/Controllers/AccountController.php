@@ -55,4 +55,42 @@ class AccountController extends Controller
         }
         else return "Email sau parola incorecte!";
     }
+
+    public function updateUserInfo(Request $request){
+        $informations = array(
+            'name' => htmlentities($request->input('name')),
+            'email' => $request->input('email'),
+            'address' => htmlentities($request->input('address')),
+            'phone' => htmlentities($request->input('phone')),
+            'password' => $request->input('password'),
+            'repeatPassword' => $request->input('repeatPassword'),
+        );
+        $validator =  Validator::make($informations, [
+            'name' => 'required',
+            'email' => 'required|email|exists:users,email',
+            'address' => 'required',
+            'phone' => 'required|size:10',
+            'password' => 'required|min:6',
+            'repeatPassword' => 'required|same:password'
+        ]);
+
+        if(!$validator->fails()){
+            if($user = User::where('email', $informations['email'])->first()){
+                if(($user->email == $informations['email']) && Hash::check($informations['password'], $user->password)){
+                    $user->nume = $informations['name'];
+                    $user->adresa = $informations['address'];
+                    $user->telefon = $informations['phone'];
+                    $user->save();
+                    return "Modificarea datelor personale a fost efectuata cu succes!";
+                }else{
+                    return "Utilizatorul specificat nu exista in baza de date!";
+                }
+            }else{
+                return "Utilizatorul specificat nu exista in baza de date!";
+            }
+        }else{
+            $messages = $validator->errors();
+            echo $messages->first();
+        }
+    }
 }
