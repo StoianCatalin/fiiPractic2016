@@ -57,7 +57,7 @@
                     <div class="ui blue submit fluid button">Actualizeaza</div>
                 </div>
                 <div class="ui message success"></div>
-                <div class="ui message warrning"></div>
+                <div class="ui message warning"></div>
             </div>
             <br /><br />
             <h2 class="ui horizontal divider header">Training-uri la care doresti sa participi</h2>
