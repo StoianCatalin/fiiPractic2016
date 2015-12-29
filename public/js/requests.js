@@ -61,6 +61,41 @@ $(document).on('click', '.participaTraining', function() {
 
 
 
+$(document).on('click', '.changeAccountInfo .submit', function(){
+    if (!$('.changeAccountInfo').children('.error').length) {
+        $(this).addClass('loading');
+        var obj = this;
+        var name = $('.changeAccountInfo input[name=name]').val();
+        var email = $('.changeAccountInfo input[name=email]').val();
+        var address = $('.changeAccountInfo input[name=address]').val();
+        var phone = $('.changeAccountInfo input[name=phone]').val();
+        var password = $('.changeAccountInfo input[name=repeatPassword]').val();
+        var repeatPassword = $('.changeAccountInfo input[name=password]').val();
+        $.post('/requests/update', {name: name, email: email, address: address, phone: phone, password: password, repeatPassword: repeatPassword}, function(data){
+            $('.changeAccountInfo .submit').removeClass('loading');
+            if (data=="Modificarea datelor personale a fost efectuata cu succes!") {
+                $('.changeAccountInfo input[name=name]').val("");
+                $('.changeAccountInfo input[name=email]').val("");
+                $('.changeAccountInfo input[name=address]').val("");
+                $('.changeAccountInfo input[name=phone]').val("");
+                $('.changeAccountInfo input[name=password]').val("");
+                $('.changeAccountInfo input[name=repeatPassword]').val("");
+                $('.changeAccountInfo .message.success').html(data);
+                setTimeout(function() {
+                    window.location.href="/";
+                }, 3000);
+            }
+            else {
+                $('.changeAccountInfo .message.warning').html(data);
+                setTimeout(function(){
+                    $('.changeAccountInfo .message.warning').html("");
+                }, 3000);
+            }
+        });
+    }
+});
+
+
 
 //ADMIN REQUESTS! -----------------------------------------------------------------------------------------
 
