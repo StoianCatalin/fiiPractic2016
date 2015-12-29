@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 29 Dec 2015 la 21:36
+-- Generation Time: 29 Dec 2015 la 23:12
 -- Versiune server: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -62,9 +62,26 @@ CREATE TABLE `areas` (
   `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `icon` varchar(255) NOT NULL,
+  `haveSubarea` tinyint(4) NOT NULL,
+  `link` varchar(255) NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Salvarea datelor din tabel `areas`
+--
+
+INSERT INTO `areas` (`id`, `name`, `description`, `icon`, `haveSubarea`, `link`, `created_at`, `updated_at`) VALUES
+(1, 'Android Pro', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'icon-androidpro', 0, 'android-pro', '2015-12-29', '2015-12-29'),
+(2, 'Front End Development', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'icon-frontend', 0, 'front-end-development', '2015-12-29', '2015-12-29'),
+(3, 'Back End Development', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'icon-backend', 1, 'back-end-development', '2015-12-29', '2015-12-29'),
+(4, 'Design Graphic', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'icon-designgraphic', 0, 'design-graphic', '2015-12-29', '2015-12-29'),
+(5, 'Game Development', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'icon-gamedev', 0, 'game-development', '2015-12-29', '2015-12-29'),
+(6, 'DevOps', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'icon-devops', 0, 'devops', '2015-12-29', '2015-12-29'),
+(7, 'Project Management', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'icon-project', 0, 'project-management', '2015-12-29', '2015-12-29'),
+(8, 'Communication Skills', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'icon-communication', 0, 'communication-skills', '2015-12-29', '2015-12-29'),
+(9, 'Management Antreprenorial', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'icon-management', 0, 'management-antreprenorial', '2015-12-29', '2015-12-29');
 
 -- --------------------------------------------------------
 
@@ -92,10 +109,19 @@ CREATE TABLE `subareas` (
   `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `area_id` int(11) NOT NULL,
-  `icon` int(11) NOT NULL,
-  `created_at` int(11) NOT NULL,
-  `updated_at` int(11) NOT NULL
+  `icon` varchar(255) NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `created_at` date NOT NULL,
+  `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Salvarea datelor din tabel `subareas`
+--
+
+INSERT INTO `subareas` (`id`, `name`, `description`, `area_id`, `icon`, `link`, `created_at`, `updated_at`) VALUES
+(1, 'PHP', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 3, 'icon-backend', 'php', '2015-12-29', '2015-12-29'),
+(2, 'Java', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 3, 'icon-backend', 'java', '2015-12-29', '2015-12-29');
 
 -- --------------------------------------------------------
 
@@ -164,6 +190,7 @@ ALTER TABLE `answers`
 -- Indexes for table `areas`
 --
 ALTER TABLE `areas`
+  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
@@ -205,6 +232,11 @@ ALTER TABLE `abonaments`
 ALTER TABLE `answers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `areas`
+--
+ALTER TABLE `areas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
@@ -213,7 +245,7 @@ ALTER TABLE `questions`
 -- AUTO_INCREMENT for table `subareas`
 --
 ALTER TABLE `subareas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `trainings`
 --
