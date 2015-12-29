@@ -49,8 +49,9 @@
 Route::group(['middleware' => ['web']], function () {
     Route::get('/', 'ViewController@home');
     Route::get('/cont', ['middleware' => 'guest', 'uses'=>'ViewController@accounts']);
-    Route::get('/trainings', 'ViewController@trainings');
+    Route::get('/trainings/{area?}', 'ViewController@trainings');
     Route::get('/arii-de-studiu', 'ViewController@arii');
+    Route::get('/arii-de-studiu/subarii/{id_arie}', 'ViewController@subarii');
     Route::get('/panou-de-administrare', ['middleware'=>'auth', 'uses'=>'ViewController@panou']);
     Route::get('/contact', 'ViewController@contact');
     Route::get('/faq', 'ViewController@faq');

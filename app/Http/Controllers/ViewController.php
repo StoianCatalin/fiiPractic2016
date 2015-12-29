@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Area;
+use App\Subarea;
 
 class ViewController extends Controller
 {
@@ -24,14 +26,32 @@ class ViewController extends Controller
         $this->info['title'] = "Login and Register | " . $this->info['title'];
         return view('pages.login', ['info'=>$this->info]);
     }
-    public function trainings() {
+    public function trainings($area = null) {
         $this->info['namespace'] = "trainings";
+        if (isset($area)) {
+            $this->info['selectedArea'] = Area::where('link', $area)->first();
+            if (!isset($this->info['selectedArea']))
+                $this->info['selectedArea'] = Subarea::where('link', $area)->first();
+        }
+        else {
+            $info['selectedArea'] = "";
+        }
         $this->info['title'] = "Training-uri | " . $this->info['title'];
+        $this->info['arii'] = Area::all();
         return view('pages.trainings', ['info'=>$this->info]);
     }
     public function arii() {
         $this->info['namespace'] = "arii";
         $this->info['title'] = "Arii de studiu | " . $this->info['title'];
+        $this->info['arii'] = Area::all();
+        return view('pages.arii', ['info'=>$this->info]);
+    }
+    public function subarii($id_arie) {
+        $this->info['namespace'] = "subarii";
+        $this->info['title'] = "Subarii | " . $this->info['title'];
+        $area = Area::where('link', $id_arie)->first();
+        $this->info['arii'] = Subarea::where('area_id', $area->id)->get();
+        if (count($this->info['arii'])==0) abort(404);
         return view('pages.arii', ['info'=>$this->info]);
     }
     public function contact() {

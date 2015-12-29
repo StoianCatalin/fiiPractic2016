@@ -15,6 +15,9 @@
     </section>
     <section id="despre">
         <div class="ui container">
+            @if (isset($info['selectedArea']))
+            <p>{{$info['selectedArea']['description']}}</p>
+            @endif
             <h2 class="ui header">Gaseste training-uri dupa preferinte</h2>
             <div class="ui form">
                 <div class="fields">
@@ -27,15 +30,14 @@
                     <div class="eight wide field">
                         <select class="ui search dropdown selectArie">
                             <option value="">Arii de studiu...</option>
-                            <option>Front End Development</option>
-                            <option>Back End Development</option>
-                            <option>Design Graphic</option>
-                            <option>Android Pro</option>
-                            <option>Game Development</option>
-                            <option>DevOps</option>
-                            <option>Project Management</option>
-                            <option>Communication Skills</option>
-                            <option>Management Antreprenorial</option>
+                            @foreach($info['arii'] as $area)
+                                <option data-type="arie" value="{{$area['id']}}">{{$area['name']}}</option>
+                                @if(count($area->subareas))
+                                    @foreach($area->subareas as $subarea)
+                                        <option data-type="arie" value="{{$subarea['id']}}">{{$subarea['name']}}</option>
+                                    @endforeach
+                                @endif
+                            @endforeach
                         </select>
                     </div>
                 </div>
