@@ -75,8 +75,9 @@ class AccountController extends Controller
         ]);
 
         if(!$validator->fails()){
-            if($user = User::where('email', $informations['email'])->first()){
-                if(($user->email == $informations['email']) && Hash::check($informations['password'], $user->password)){
+            if(Auth::check()){
+                $user = Auth::user();
+                if(Hash::check($informations['password'], $user->password)){
                     $user->nume = $informations['name'];
                     $user->adresa = $informations['address'];
                     $user->telefon = $informations['phone'];
