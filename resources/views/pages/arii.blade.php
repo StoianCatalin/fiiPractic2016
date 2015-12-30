@@ -16,78 +16,20 @@
     <section id="despre">
         <div class="ui container">
             <div class="ui stackable grid ariiStudiu">
-                <div class="five wide column">
-                    <a href="">
-                        <div class="arie">
-                            <i class="icon-androidpro"></i>
-                            <h2>Android Pro</h2>
-                        </div>
-                    </a>
-                </div>
-                <div class="five wide column">
-                    <a href="">
-                        <div class="arie">
-                            <i class="icon-frontend"></i>
-                            <h2>Front End Development</h2>
-                        </div>
-                    </a>
-                </div>
-                <div class="five wide column">
-                    <a href="">
-                        <div class="arie">
-                            <i class="icon-backend"></i>
-                            <h2>Back End Development</h2>
-                        </div>
-                    </a>
-                </div>
-                <div class="five wide column">
-                    <a href="">
-                        <div class="arie">
-                            <i class="icon-designgraphic"></i>
-                            <h2>Design Graphic</h2>
-                        </div>
-                    </a>
-                </div>
-                <div class="five wide column">
-                    <a href="">
-                        <div class="arie">
-                            <i class="icon-gamedev"></i>
-                            <h2>Game Development</h2>
-                        </div>
-                    </a>
-                </div>
-                <div class="five wide column">
-                    <a href="">
-                        <div class="arie">
-                            <i class="icon-devops"></i>
-                            <h2>DevOps</h2>
-                        </div>
-                    </a>
-                </div>
-                <div class="five wide column">
-                    <a href="">
-                        <div class="arie">
-                            <i class="icon-project"></i>
-                            <h2>Project Management</h2>
-                        </div>
-                    </a>
-                </div>
-                <div class="five wide column">
-                    <a href="">
-                        <div class="arie">
-                            <i class="icon-communication"></i>
-                            <h2>Communication Skills</h2>
-                        </div>
-                    </a>
-                </div>
-                <div class="five wide column">
-                    <a href="">
-                        <div class="arie">
-                            <i class="icon-management"></i>
-                            <h2>Management Antreprenorial</h2>
-                        </div>
-                    </a>
-                </div>
+                @foreach($info['arii'] as $area)
+                    <div class="five wide column">
+                        @if ($area['haveSubarea'])
+                            <a href="/arii-de-studiu/subarii/{{$area['link']}}">
+                                @else
+                                    <a href="/trainings/{{$area['link']}}">
+                                        @endif
+                                        <div class="arie">
+                                            <i class="{{$area['icon']}}"></i>
+                                            <h2>{{$area['name']}}</h2>
+                                        </div>
+                                    </a>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>

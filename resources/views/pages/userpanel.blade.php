@@ -15,7 +15,7 @@
     </section>
     <section id="despre">
         <div class="ui container">
-            <div class="ui form changeAccountInfo" style="max-width: 600px;">
+            <div class="ui form warning changeAccountInfo" style="max-width: 600px;">
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="icon user"></i>
@@ -56,6 +56,8 @@
                 <div class="center">
                     <div class="ui blue submit fluid button">Actualizeaza</div>
                 </div>
+                <div class="ui message success"></div>
+                <div class="ui message warning"></div>
             </div>
             <br /><br />
             <h2 class="ui horizontal divider header">Training-uri la care doresti sa participi</h2>
