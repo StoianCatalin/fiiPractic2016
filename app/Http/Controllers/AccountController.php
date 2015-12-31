@@ -10,6 +10,7 @@ use App\User;
 use Validator;
 use Hash;
 use Auth;
+use App\Role;
 
 class AccountController extends Controller
 {
@@ -30,11 +31,11 @@ class AccountController extends Controller
         ]);
         if (!$validator->fails()){
             $user = new User();
-            $user->nume = $informations['name'];
-            $user->type = 0;
+            $user->username = $informations['name'];
+            $user->role_id = Role::where('role', 'user')->first()->id;
             $user->email = $informations['email'];
-            $user->adresa = $informations['address'];
-            $user->telefon = $informations['phone'];
+            $user->adress = $informations['address'];
+            $user->phone = $informations['phone'];
             $user->password = Hash::make($informations['password']);
             $user->save();
             Auth::login($user);
@@ -70,24 +71,20 @@ class AccountController extends Controller
             'email' => 'required|email|exists:users,email',
             'address' => 'required',
             'phone' => 'required|size:10',
-            'password' => 'required|min:6',
-            'repeatPassword' => 'required|same:password'
+            'password' => 'min:6',
+            'repeatPassword' => 'same:password'
         ]);
 
         if(!$validator->fails()){
             if(Auth::check()){
-                $user = Auth::user();
-                if(Hash::check($informations['password'], $user->password)){
-                    $user->nume = $informations['name'];
-                    $user->adresa = $informations['address'];
-                    $user->telefon = $informations['phone'];
-                    $user->save();
-                    return "Modificarea datelor personale a fost efectuata cu succes!";
-                }else{
-                    return "Utilizatorul specificat nu exista in baza de date!";
-                }
+                Auth::user()->username = $informations['name'];
+                Auth::user()->adress = $informations['address'];
+                Auth::user()->phone = $informations['phone'];
+                Auth::user()->password = Hash::make($informations['password']);
+                Auth::user()->save();
+                return "Modificarea datelor personale a fost efectuata cu succes!";
             }else{
-                return "Utilizatorul specificat nu exista in baza de date!";
+                return "Eroare!";
             }
         }else{
             $messages = $validator->errors();

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
+use App\Role;
 
 class TrainerAuth
 {
@@ -16,10 +17,11 @@ class TrainerAuth
      */
     public function handle($request, Closure $next)
     {
+        $role = Role::where('role', 'trainer')->first()->id;
         if (!Auth::check()) {
             return redirect('/cont');
         }
-        else if (Auth::user()->type!=1) {
+        else if (Auth::user()->role_id!=$role) {
             abort(404);
         }
         return $next($request);
