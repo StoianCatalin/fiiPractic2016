@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 29 Dec 2015 la 23:12
--- Versiune server: 10.1.9-MariaDB
--- PHP Version: 5.6.15
+-- Generation Time: Dec 31, 2015 at 01:57 PM
+-- Server version: 10.1.8-MariaDB
+-- PHP Version: 5.6.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -22,22 +22,21 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
---
--- Structura de tabel pentru tabelul `abonaments`
---
-
 drop table answers;
 drop table applicants;
 drop table areas;
 drop table groups;
 drop table questions;
-drop table quiz;
 drop table roles;
 drop table sponsors;
 drop table subareas;
+drop table usergroups;
+drop table userresponses;
 drop table users;
-drop table user_group;
-drop table user_response;
+
+--
+-- Table structure for table `answers`
+--
 
 CREATE TABLE `answers` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -130,22 +129,6 @@ CREATE TABLE `questions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `quiz`
---
-
-CREATE TABLE `quiz` (
-  `id` int(2) NOT NULL,
-  `title` varchar(120) NOT NULL,
-  `area_id` int(1) NOT NULL,
-  `subarea_id` int(2) NOT NULL,
-  `added_by` int(3) NOT NULL,
-  `created_at` date NOT NULL,
-  `updated_at` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `roles`
 --
 
@@ -210,6 +193,35 @@ INSERT INTO `subareas` (`id`, `area_id`, `trainer_id`, `title`, `description`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `usergroups`
+--
+
+CREATE TABLE `usergroups` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `group_id` int(3) NOT NULL,
+  `user_id` int(3) NOT NULL,
+  `created_at` date NOT NULL,
+  `updated_at` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `userresposnses`
+--
+
+CREATE TABLE `userresposnses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `quiz_id` int(3) NOT NULL,
+  `question_id` int(3) NOT NULL,
+  `response` text NOT NULL,
+  `created_at` date NOT NULL,
+  `updated_at` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -224,35 +236,6 @@ CREATE TABLE `users` (
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL,
   `remember_token` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_group`
---
-
-CREATE TABLE `user_group` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `group_id` int(3) NOT NULL,
-  `user_id` int(3) NOT NULL,
-  `created_at` date NOT NULL,
-  `updated_at` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_resposnse`
---
-
-CREATE TABLE `user_resposnse` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `quiz_id` int(3) NOT NULL,
-  `question_id` int(3) NOT NULL,
-  `response` text NOT NULL,
-  `created_at` date NOT NULL,
-  `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -293,12 +276,6 @@ ALTER TABLE `questions`
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `quiz`
---
-ALTER TABLE `quiz`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -319,23 +296,23 @@ ALTER TABLE `subareas`
   ADD UNIQUE KEY `id` (`id`);
 
 --
+-- Indexes for table `usergroups`
+--
+ALTER TABLE `usergroups`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `userresposnses`
+--
+ALTER TABLE `userresposnses`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
-
---
--- Indexes for table `user_group`
---
-ALTER TABLE `user_group`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
-
---
--- Indexes for table `user_resposnse`
---
-ALTER TABLE `user_resposnse`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
@@ -369,11 +346,6 @@ ALTER TABLE `groups`
 ALTER TABLE `questions`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `quiz`
---
-ALTER TABLE `quiz`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
@@ -389,19 +361,19 @@ ALTER TABLE `sponsors`
 ALTER TABLE `subareas`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT for table `usergroups`
+--
+ALTER TABLE `usergroups`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `userresposnses`
+--
+ALTER TABLE `userresposnses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `user_group`
---
-ALTER TABLE `user_group`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `user_resposnse`
---
-ALTER TABLE `user_resposnse`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
