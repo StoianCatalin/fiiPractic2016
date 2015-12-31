@@ -18,14 +18,14 @@
             <div class="ui stackable grid ariiStudiu">
                 @foreach($info['arii'] as $area)
                     <div class="five wide column">
-                        @if ($area['haveSubarea'])
+                        @if ($area['subareas_count'] > 0)
                             <a href="/arii-de-studiu/subarii/{{$area['link']}}">
                                 @else
                                     <a href="/trainings/{{$area['link']}}">
                                         @endif
                                         <div class="arie">
                                             <i class="{{$area['icon']}}"></i>
-                                            <h2>{{$area['name']}}</h2>
+                                            <h2>{{$area['title']}}</h2>
                                         </div>
                                     </a>
                     </div>
