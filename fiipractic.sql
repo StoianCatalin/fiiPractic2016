@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 31, 2015 at 01:57 PM
--- Server version: 10.1.8-MariaDB
--- PHP Version: 5.6.14
+-- Generation Time: 01 Ian 2016 la 16:20
+-- Versiune server: 10.1.9-MariaDB
+-- PHP Version: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -22,41 +22,14 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
-drop table answers;
-drop table applicants;
-drop table areas;
-drop table groups;
-drop table questions;
-drop table roles;
-drop table sponsors;
-drop table subareas;
-drop table usergroups;
-drop table userresponses;
-drop table users;
-
 --
--- Table structure for table `answers`
---
-
-CREATE TABLE `answers` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `question_id` int(4) NOT NULL,
-  `answer` text NOT NULL,
-  `created_at` date NOT NULL,
-  `updated_at` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `applicants`
+-- Structura de tabel pentru tabelul `applicants`
 --
 
 CREATE TABLE `applicants` (
   `id` int(3) NOT NULL,
   `user_id` int(3) NOT NULL,
-  `area_id` int(1) NOT NULL,
-  `subarea_id` int(2) NOT NULL,
+  `trainer_id` int(11) NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -64,7 +37,7 @@ CREATE TABLE `applicants` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `areas`
+-- Structura de tabel pentru tabelul `areas`
 --
 
 CREATE TABLE `areas` (
@@ -80,7 +53,7 @@ CREATE TABLE `areas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `areas`
+-- Salvarea datelor din tabel `areas`
 --
 
 INSERT INTO `areas` (`id`, `trainer_id`, `subareas_count`, `description`, `title`, `icon`, `link`, `created_at`, `updated_at`) VALUES
@@ -97,12 +70,12 @@ INSERT INTO `areas` (`id`, `trainer_id`, `subareas_count`, `description`, `title
 -- --------------------------------------------------------
 
 --
--- Table structure for table `groups`
+-- Structura de tabel pentru tabelul `groups`
 --
 
 CREATE TABLE `groups` (
   `id` int(3) NOT NULL,
-  `trainer_id` int(3) NOT NULL,
+  `training_id` int(3) NOT NULL,
   `area_id` int(3) NOT NULL,
   `subarea_id` int(3) NOT NULL,
   `group_name` varchar(120) NOT NULL,
@@ -113,12 +86,12 @@ CREATE TABLE `groups` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `questions`
+-- Structura de tabel pentru tabelul `questions`
 --
 
 CREATE TABLE `questions` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `quiz_id` int(2) NOT NULL,
+  `training_id` int(11) NOT NULL,
   `question` text NOT NULL,
   `posted_by` int(3) NOT NULL,
   `required` tinyint(1) NOT NULL DEFAULT '1',
@@ -129,7 +102,22 @@ CREATE TABLE `questions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Structura de tabel pentru tabelul `responses`
+--
+
+CREATE TABLE `responses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `question_id` int(3) NOT NULL,
+  `response` text NOT NULL,
+  `author` int(11) NOT NULL,
+  `created_at` date NOT NULL,
+  `updated_at` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `roles`
 --
 
 CREATE TABLE `roles` (
@@ -140,7 +128,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `roles`
+-- Salvarea datelor din tabel `roles`
 --
 
 INSERT INTO `roles` (`id`, `role`, `created_at`, `updated_at`) VALUES
@@ -152,7 +140,7 @@ INSERT INTO `roles` (`id`, `role`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sponsors`
+-- Structura de tabel pentru tabelul `sponsors`
 --
 
 CREATE TABLE `sponsors` (
@@ -167,7 +155,7 @@ CREATE TABLE `sponsors` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `subareas`
+-- Structura de tabel pentru tabelul `subareas`
 --
 
 CREATE TABLE `subareas` (
@@ -183,7 +171,7 @@ CREATE TABLE `subareas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `subareas`
+-- Salvarea datelor din tabel `subareas`
 --
 
 INSERT INTO `subareas` (`id`, `area_id`, `trainer_id`, `title`, `description`, `icon`, `link`, `created_at`, `updated_at`) VALUES
@@ -193,13 +181,17 @@ INSERT INTO `subareas` (`id`, `area_id`, `trainer_id`, `title`, `description`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usergroups`
+-- Structura de tabel pentru tabelul `trainings`
 --
 
-CREATE TABLE `usergroups` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `group_id` int(3) NOT NULL,
-  `user_id` int(3) NOT NULL,
+CREATE TABLE `trainings` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `area_id` int(11) NOT NULL,
+  `subarea_id` int(11) NOT NULL,
+  `locuri` int(11) NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -207,29 +199,14 @@ CREATE TABLE `usergroups` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userresposnses`
---
-
-CREATE TABLE `userresposnses` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `quiz_id` int(3) NOT NULL,
-  `question_id` int(3) NOT NULL,
-  `response` text NOT NULL,
-  `created_at` date NOT NULL,
-  `updated_at` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
+-- Structura de tabel pentru tabelul `users`
 --
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `role_id` int(2) NOT NULL DEFAULT '1',
   `username` varchar(120) NOT NULL,
-  `password` varchar(40) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `email` varchar(120) NOT NULL,
   `adress` varchar(255) NOT NULL,
   `phone` varchar(20) NOT NULL,
@@ -239,15 +216,29 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Indexes for dumped tables
+-- Salvarea datelor din tabel `users`
 --
 
+INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `email`, `adress`, `phone`, `created_at`, `updated_at`, `remember_token`) VALUES
+(7, 3, 'Stoian Catalin', '$2y$10$Lc4tBmnzR0MSVBozKswNvOz4liiq0qeIYJyhVP0e5yuCin/d480PO', 'stoian.ioan.catalin@gmail.com', 'Lozoveni', '0754312343', '2016-01-01', '2016-01-01', 'qggviIidDI1Vapp92sMcuP04yh8FXsQsaBJoqmLoCtJ97soCiWmtNDleq7Fb');
+
+-- --------------------------------------------------------
+
 --
--- Indexes for table `answers`
+-- Structura de tabel pentru tabelul `user_group`
 --
-ALTER TABLE `answers`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
+
+CREATE TABLE `user_group` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `group_id` int(3) NOT NULL,
+  `user_id` int(3) NOT NULL,
+  `created_at` date NOT NULL,
+  `updated_at` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
 
 --
 -- Indexes for table `applicants`
@@ -276,6 +267,13 @@ ALTER TABLE `questions`
   ADD UNIQUE KEY `id` (`id`);
 
 --
+-- Indexes for table `responses`
+--
+ALTER TABLE `responses`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -296,17 +294,9 @@ ALTER TABLE `subareas`
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `usergroups`
+-- Indexes for table `trainings`
 --
-ALTER TABLE `usergroups`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
-
---
--- Indexes for table `userresposnses`
---
-ALTER TABLE `userresposnses`
-  ADD PRIMARY KEY (`id`),
+ALTER TABLE `trainings`
   ADD UNIQUE KEY `id` (`id`);
 
 --
@@ -317,14 +307,16 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `id` (`id`);
 
 --
+-- Indexes for table `user_group`
+--
+ALTER TABLE `user_group`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
---
--- AUTO_INCREMENT for table `answers`
---
-ALTER TABLE `answers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `applicants`
 --
@@ -346,6 +338,11 @@ ALTER TABLE `groups`
 ALTER TABLE `questions`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `responses`
+--
+ALTER TABLE `responses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
@@ -361,19 +358,19 @@ ALTER TABLE `sponsors`
 ALTER TABLE `subareas`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `usergroups`
+-- AUTO_INCREMENT for table `trainings`
 --
-ALTER TABLE `usergroups`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `userresposnses`
---
-ALTER TABLE `userresposnses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `trainings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `user_group`
+--
+ALTER TABLE `user_group`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

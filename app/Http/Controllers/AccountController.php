@@ -51,7 +51,11 @@ class AccountController extends Controller
         return redirect('/cont');
     }
     public function login(Request $request) {
-        if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')], true)) {
+        $info = array(
+            'email' => $request->input('email'),
+            'password' => $request->input('password')
+        );
+        if (Auth::attempt($info, true)) {
             return "Logare efectuata cu success!";
         }
         else return "Email sau parola incorecte!";
