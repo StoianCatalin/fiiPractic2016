@@ -23,8 +23,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    public function groups()
+    public function trainings()
     {
-        return $this->belongsToMany('App\Group');
+        return $this->hasMany('App\Training');
     }
 }
