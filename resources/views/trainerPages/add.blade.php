@@ -18,15 +18,14 @@
                         <label>Arie</label>
                         <select class="ui search dropdown selecteazaArie">
                             <option value="">Arii de studiu...</option>
-                            <option>Front End Development</option>
-                            <option>Back End Development</option>
-                            <option>Design Graphic</option>
-                            <option>Android Pro</option>
-                            <option>Game Development</option>
-                            <option>DevOps</option>
-                            <option>Project Management</option>
-                            <option>Communication Skills</option>
-                            <option>Management Antreprenorial</option>
+                            @foreach($info['arii'] as $area)
+                                <option data-type="arie" value="{{$area['id']}}">{{$area['title']}}</option>
+                                @if(count($area->subareas))
+                                    @foreach($area->subareas as $subarea)
+                                        <option data-type="arie" value="{{$subarea['id']}}">{{$subarea['title']}}</option>
+                                    @endforeach
+                                @endif
+                            @endforeach
                         </select>
                     </div>
                     <div class="field">

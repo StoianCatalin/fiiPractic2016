@@ -31,10 +31,10 @@
                         <select class="ui search dropdown selectArie">
                             <option value="">Arii de studiu...</option>
                             @foreach($info['arii'] as $area)
-                                <option data-type="arie" value="{{$area['id']}}">{{$area['name']}}</option>
+                                <option data-type="arie" value="{{$area['id']}}">{{$area['title']}}</option>
                                 @if(count($area->subareas))
                                     @foreach($area->subareas as $subarea)
-                                        <option data-type="arie" value="{{$subarea['id']}}">{{$subarea['name']}}</option>
+                                        <option data-type="arie" value="{{$subarea['id']}}">{{$subarea['title']}}</option>
                                     @endforeach
                                 @endif
                             @endforeach

@@ -10,4 +10,7 @@ class Area extends Model
     {
         return $this->hasMany('App\Subarea');
     }
+    public function subareas_count() {
+        return count($this->subareas);
+    }
 }
