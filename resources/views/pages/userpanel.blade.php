@@ -15,11 +15,11 @@
     </section>
     <section id="despre">
         <div class="ui container">
-            <div class="ui form warning changeAccountInfo" style="max-width: 600px;">
+            <div class="ui form warning success changeAccountInfo" style="max-width: 600px;">
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="icon user"></i>
-                        <input placeholder="Numele tau" type="text" name="name" value="{{Auth::user()->nume}}">
+                        <input placeholder="Numele tau" type="text" name="name" value="{{Auth::user()->username}}">
                     </div>
                 </div>
                 <div class="field">
@@ -32,18 +32,18 @@
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="icon world"></i>
-                        <input placeholder="Adresa" type="text" name="address" value="{{Auth::user()->adresa}}">
+                        <input placeholder="Adresa" type="text" name="address" value="{{Auth::user()->adress}}">
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="icon phone"></i>
-                        <input placeholder="Numar de telefon" type="text" name="phone" value="{{Auth::user()->telefon}}">
+                        <input placeholder="Numar de telefon" type="text" name="phone" value="{{Auth::user()->phone}}">
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui left icon input">
-                        <input placeholder="Parola" type="password" name="password">
+                        <input placeholder="Parola Noua" type="password" name="password">
                         <i class="lock icon"></i>
                     </div>
                 </div>

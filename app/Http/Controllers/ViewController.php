@@ -86,6 +86,7 @@ class ViewController extends Controller
     }
     public function trainerAdd() {
         $this->info['namespace'] = "trainerIndex";
+        $this->info['arii'] = Area::all();
         $this->info['title'] = "Adauga Training | " . $this->info['title'];
         return view('trainerPages.add', ['info'=>$this->info]);
     }

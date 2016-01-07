@@ -18,7 +18,7 @@
             <div class="ui stackable grid ariiStudiu">
                 @foreach($info['arii'] as $area)
                     <div class="five wide column">
-                        @if ($area['subareas_count'] > 0)
+                        @if (count($area->subareas) > 0)
                             <a href="/arii-de-studiu/subarii/{{$area['link']}}">
                                 @else
                                     <a href="/trainings/{{$area['link']}}">

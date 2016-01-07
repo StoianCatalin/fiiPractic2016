@@ -67,6 +67,18 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('/requests/register', 'AccountController@registerAccount');
     Route::post('/requests/login', 'AccountController@login');
-
+    Route::post('/requests/trainer/addTraining', ['middleware'=>'trainerAuth', 'uses'=>'TrainingController@addTraining']);
     Route::post('/requests/update', 'AccountController@updateUserInfo');
+    Route::get('images/{filename}', function ($filename)
+    {
+        $path = storage_path() . '/images/' . $filename;
+
+        $file = File::get($path);
+        $type = File::mimeType($path);
+
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+
+        return $response;
+    });
 });

@@ -39,9 +39,17 @@ $(document).ready(function() {
         fields: {
             email : ['email', 'empty'],
             name : ['empty', 'minLength[6]'],
-            address : ['empty'],
-            password : ['empty', 'minLength[6]'],
-            repeatPassword : ['empty', 'minLength[6]'],
+            address : ['empty', 'minLength[6]'],
+            password :{
+                identifier: 'password',
+                optional: true,
+                rules: ['minLength[6]']
+            },
+            repeatPassword :{
+                identifier: 'repeatPassword',
+                optional: true,
+                rules: ['match[password]', 'minLength[6]']
+            },
             phone : ['empty', 'exactLength[10]']
         }
     });

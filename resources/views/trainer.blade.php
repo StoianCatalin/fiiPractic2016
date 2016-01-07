@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="{{ asset('semantic/semantic.min.js') }}"></script>
 </head>
 <body>
 <div id="mainPanel">
@@ -75,7 +76,6 @@ headers: {
 }
 });
 </script>
-<script src="{{ asset('semantic/semantic.min.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/requests.js') }}"></script>
 <script>

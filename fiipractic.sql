@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 31, 2015 at 01:57 PM
--- Server version: 10.1.8-MariaDB
--- PHP Version: 5.6.14
+-- Generation Time: 07 Ian 2016 la 10:12
+-- Versiune server: 10.1.9-MariaDB
+-- PHP Version: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -22,41 +22,37 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
-drop table answers;
-drop table applicants;
-drop table areas;
-drop table groups;
-drop table questions;
-drop table roles;
-drop table sponsors;
-drop table subareas;
-drop table usergroups;
-drop table userresponses;
-drop table users;
-
 --
--- Table structure for table `answers`
---
-
-CREATE TABLE `answers` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `question_id` int(4) NOT NULL,
-  `answer` text NOT NULL,
-  `created_at` date NOT NULL,
-  `updated_at` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `applicants`
+-- Structura de tabel pentru tabelul `applicants`
 --
 
 CREATE TABLE `applicants` (
   `id` int(3) NOT NULL,
   `user_id` int(3) NOT NULL,
-  `area_id` int(1) NOT NULL,
-  `subarea_id` int(2) NOT NULL,
+  `training_id` int(3) NOT NULL,
+  `trainer_id` int(11) NOT NULL,
+  `created_at` date NOT NULL,
+  `updated_at` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Salvarea datelor din tabel `applicants`
+--
+
+INSERT INTO `applicants` (`id`, `user_id`, `training_id`, `trainer_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, '2016-01-03', '2016-01-03'),
+(2, 2, 1, 2, '2016-01-28', '2016-01-06');
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `applicant_group`
+--
+
+CREATE TABLE `applicant_group` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `group_id` int(3) NOT NULL,
+  `applicant_id` int(3) NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -64,12 +60,11 @@ CREATE TABLE `applicants` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `areas`
+-- Structura de tabel pentru tabelul `areas`
 --
 
 CREATE TABLE `areas` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `trainer_id` int(3) NOT NULL,
   `subareas_count` int(1) NOT NULL,
   `description` text NOT NULL,
   `title` varchar(120) NOT NULL,
@@ -80,45 +75,55 @@ CREATE TABLE `areas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `areas`
+-- Salvarea datelor din tabel `areas`
 --
 
-INSERT INTO `areas` (`id`, `trainer_id`, `subareas_count`, `description`, `title`, `icon`, `link`, `created_at`, `updated_at`) VALUES
-(1, 0, 0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'Android Pro', 'icon-androidpro', 'android-pro', '0000-00-00', '0000-00-00'),
-(2, 0, 0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'Front End Development', 'icon-frontend', 'front-end-development', '0000-00-00', '0000-00-00'),
-(3, 0, 2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'Back End Development', 'icon-backend', 'back-end-development', '0000-00-00', '0000-00-00'),
-(4, 0, 0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'Design Graphic', 'icon-designgraphic', 'design-graphic', '0000-00-00', '0000-00-00'),
-(5, 0, 0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'Game Development', 'icon-gamedev', 'game-development', '0000-00-00', '0000-00-00'),
-(6, 0, 0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'DevOps', 'icon-devops', 'devops', '0000-00-00', '0000-00-00'),
-(7, 0, 0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'Project Management', 'icon-project', 'project-management', '0000-00-00', '0000-00-00'),
-(8, 0, 0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'Communication Skills', 'icon-communication', 'communication-skills', '0000-00-00', '0000-00-00'),
-(9, 0, 0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'Management Antreprenorial', 'icon-management', 'management-antreprenorial', '0000-00-00', '0000-00-00');
+INSERT INTO `areas` (`id`, `subareas_count`, `description`, `title`, `icon`, `link`, `created_at`, `updated_at`) VALUES
+(1, 0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'Android Pro', 'icon-androidpro', 'android-pro', '0000-00-00', '0000-00-00'),
+(2, 0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'Front End Development', 'icon-frontend', 'front-end-development', '0000-00-00', '0000-00-00'),
+(3, 2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'Back End Development', 'icon-backend', 'back-end-development', '0000-00-00', '0000-00-00'),
+(4, 0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'Design Graphic', 'icon-designgraphic', 'design-graphic', '0000-00-00', '0000-00-00'),
+(5, 0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'Game Development', 'icon-gamedev', 'game-development', '0000-00-00', '0000-00-00'),
+(6, 0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'DevOps', 'icon-devops', 'devops', '0000-00-00', '0000-00-00'),
+(7, 0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'Project Management', 'icon-project', 'project-management', '0000-00-00', '0000-00-00'),
+(8, 0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'Communication Skills', 'icon-communication', 'communication-skills', '0000-00-00', '0000-00-00'),
+(9, 0, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'Management Antreprenorial', 'icon-management', 'management-antreprenorial', '0000-00-00', '0000-00-00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `groups`
+-- Structura de tabel pentru tabelul `groups`
 --
 
 CREATE TABLE `groups` (
   `id` int(3) NOT NULL,
+  `training_id` int(3) NOT NULL,
   `trainer_id` int(3) NOT NULL,
   `area_id` int(3) NOT NULL,
   `subarea_id` int(3) NOT NULL,
-  `group_name` varchar(120) NOT NULL,
+  `groupOrder` int(11) NOT NULL,
+  `data` varchar(120) NOT NULL,
+  `ora` varchar(120) NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Salvarea datelor din tabel `groups`
+--
+
+INSERT INTO `groups` (`id`, `training_id`, `trainer_id`, `area_id`, `subarea_id`, `groupOrder`, `data`, `ora`, `created_at`, `updated_at`) VALUES
+(1, 1, 7, 2, 0, 1, '10/12/2016', '12:00', '2016-01-07', '2016-01-07');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `questions`
+-- Structura de tabel pentru tabelul `questions`
 --
 
 CREATE TABLE `questions` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `quiz_id` int(2) NOT NULL,
+  `training_id` int(11) NOT NULL,
   `question` text NOT NULL,
   `posted_by` int(3) NOT NULL,
   `required` tinyint(1) NOT NULL DEFAULT '1',
@@ -129,7 +134,22 @@ CREATE TABLE `questions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Structura de tabel pentru tabelul `responses`
+--
+
+CREATE TABLE `responses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `question_id` int(3) NOT NULL,
+  `response` text NOT NULL,
+  `applicant_id` int(11) NOT NULL,
+  `created_at` date NOT NULL,
+  `updated_at` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `roles`
 --
 
 CREATE TABLE `roles` (
@@ -140,7 +160,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `roles`
+-- Salvarea datelor din tabel `roles`
 --
 
 INSERT INTO `roles` (`id`, `role`, `created_at`, `updated_at`) VALUES
@@ -152,7 +172,7 @@ INSERT INTO `roles` (`id`, `role`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sponsors`
+-- Structura de tabel pentru tabelul `sponsors`
 --
 
 CREATE TABLE `sponsors` (
@@ -167,13 +187,12 @@ CREATE TABLE `sponsors` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `subareas`
+-- Structura de tabel pentru tabelul `subareas`
 --
 
 CREATE TABLE `subareas` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `area_id` int(1) NOT NULL,
-  `trainer_id` int(3) NOT NULL,
   `title` varchar(120) NOT NULL,
   `description` text NOT NULL,
   `icon` varchar(120) NOT NULL,
@@ -183,53 +202,50 @@ CREATE TABLE `subareas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `subareas`
+-- Salvarea datelor din tabel `subareas`
 --
 
-INSERT INTO `subareas` (`id`, `area_id`, `trainer_id`, `title`, `description`, `icon`, `link`, `created_at`, `updated_at`) VALUES
-(1, 3, 0, 'PHP', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'icon-backend', 'php', '0000-00-00', '0000-00-00'),
-(2, 3, 0, 'Java', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'icon-backend', 'java', '0000-00-00', '0000-00-00');
+INSERT INTO `subareas` (`id`, `area_id`, `title`, `description`, `icon`, `link`, `created_at`, `updated_at`) VALUES
+(1, 3, 'PHP', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'icon-backend', 'php', '0000-00-00', '0000-00-00'),
+(2, 3, 'Java', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'icon-backend', 'java', '0000-00-00', '0000-00-00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usergroups`
+-- Structura de tabel pentru tabelul `trainings`
 --
 
-CREATE TABLE `usergroups` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `group_id` int(3) NOT NULL,
-  `user_id` int(3) NOT NULL,
+CREATE TABLE `trainings` (
+  `id` int(11) NOT NULL,
+  `trainer_id` int(3) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `area_id` int(11) NOT NULL,
+  `subarea_id` int(11) NOT NULL,
+  `locuri` int(11) NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `userresposnses`
+-- Salvarea datelor din tabel `trainings`
 --
 
-CREATE TABLE `userresposnses` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `quiz_id` int(3) NOT NULL,
-  `question_id` int(3) NOT NULL,
-  `response` text NOT NULL,
-  `created_at` date NOT NULL,
-  `updated_at` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `trainings` (`id`, `trainer_id`, `name`, `description`, `image`, `area_id`, `subarea_id`, `locuri`, `created_at`, `updated_at`) VALUES
+(1, 7, 'Test training', 'dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa ', 'images/d.jpg', 2, 0, 30, '2016-01-07', '2016-01-07');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Structura de tabel pentru tabelul `users`
 --
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `role_id` int(2) NOT NULL DEFAULT '1',
   `username` varchar(120) NOT NULL,
-  `password` varchar(40) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `email` varchar(120) NOT NULL,
   `adress` varchar(255) NOT NULL,
   `phone` varchar(20) NOT NULL,
@@ -239,21 +255,29 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Indexes for dumped tables
+-- Salvarea datelor din tabel `users`
 --
 
+INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `email`, `adress`, `phone`, `created_at`, `updated_at`, `remember_token`) VALUES
+(7, 3, 'Stoian Catalin', '$2y$10$Lc4tBmnzR0MSVBozKswNvOz4liiq0qeIYJyhVP0e5yuCin/d480PO', 'stoian.ioan.catalin@gmail.com', 'Lozoveni', '0754312343', '2016-01-01', '2016-01-01', 'qggviIidDI1Vapp92sMcuP04yh8FXsQsaBJoqmLoCtJ97soCiWmtNDleq7Fb'),
+(8, 3, 'Bogatu Ion', '$2y$10$2ChaKaGOQyFTo1/xjq0FfOnAPmPoXeME4if/yLEsfmuXu6qwLW5MC', 'ionbogatu@gmail.com', 'Lorem ipsum', '0751234567', '2016-01-01', '2016-01-02', '11E8t3xRNwQjcJVxFKF3Yn680TcOHFNUD9B4TKEnapA8C8ns9S2wh2DWvMip');
+
 --
--- Indexes for table `answers`
+-- Indexes for dumped tables
 --
-ALTER TABLE `answers`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `applicants`
 --
 ALTER TABLE `applicants`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `applicant_group`
+--
+ALTER TABLE `applicant_group`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `areas`
@@ -272,6 +296,13 @@ ALTER TABLE `groups`
 -- Indexes for table `questions`
 --
 ALTER TABLE `questions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `responses`
+--
+ALTER TABLE `responses`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
@@ -296,17 +327,9 @@ ALTER TABLE `subareas`
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `usergroups`
+-- Indexes for table `trainings`
 --
-ALTER TABLE `usergroups`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
-
---
--- Indexes for table `userresposnses`
---
-ALTER TABLE `userresposnses`
-  ADD PRIMARY KEY (`id`),
+ALTER TABLE `trainings`
   ADD UNIQUE KEY `id` (`id`);
 
 --
@@ -321,15 +344,15 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `answers`
---
-ALTER TABLE `answers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT for table `applicants`
 --
 ALTER TABLE `applicants`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `applicant_group`
+--
+ALTER TABLE `applicant_group`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `areas`
 --
@@ -339,11 +362,16 @@ ALTER TABLE `areas`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `responses`
+--
+ALTER TABLE `responses`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `roles`
@@ -361,20 +389,15 @@ ALTER TABLE `sponsors`
 ALTER TABLE `subareas`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `usergroups`
+-- AUTO_INCREMENT for table `trainings`
 --
-ALTER TABLE `usergroups`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `userresposnses`
---
-ALTER TABLE `userresposnses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `trainings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
