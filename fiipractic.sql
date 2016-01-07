@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 04, 2016 at 08:12 PM
--- Server version: 10.1.8-MariaDB
--- PHP Version: 5.6.14
+-- Generation Time: 07 Ian 2016 la 10:12
+-- Versiune server: 10.1.9-MariaDB
+-- PHP Version: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `applicants`
+-- Structura de tabel pentru tabelul `applicants`
 --
 
 CREATE TABLE `applicants` (
@@ -36,7 +36,7 @@ CREATE TABLE `applicants` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `applicants`
+-- Salvarea datelor din tabel `applicants`
 --
 
 INSERT INTO `applicants` (`id`, `user_id`, `training_id`, `trainer_id`, `created_at`, `updated_at`) VALUES
@@ -46,7 +46,7 @@ INSERT INTO `applicants` (`id`, `user_id`, `training_id`, `trainer_id`, `created
 -- --------------------------------------------------------
 
 --
--- Table structure for table `applicant_group`
+-- Structura de tabel pentru tabelul `applicant_group`
 --
 
 CREATE TABLE `applicant_group` (
@@ -60,7 +60,7 @@ CREATE TABLE `applicant_group` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `areas`
+-- Structura de tabel pentru tabelul `areas`
 --
 
 CREATE TABLE `areas` (
@@ -75,7 +75,7 @@ CREATE TABLE `areas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `areas`
+-- Salvarea datelor din tabel `areas`
 --
 
 INSERT INTO `areas` (`id`, `subareas_count`, `description`, `title`, `icon`, `link`, `created_at`, `updated_at`) VALUES
@@ -92,7 +92,7 @@ INSERT INTO `areas` (`id`, `subareas_count`, `description`, `title`, `icon`, `li
 -- --------------------------------------------------------
 
 --
--- Table structure for table `groups`
+-- Structura de tabel pentru tabelul `groups`
 --
 
 CREATE TABLE `groups` (
@@ -101,15 +101,24 @@ CREATE TABLE `groups` (
   `trainer_id` int(3) NOT NULL,
   `area_id` int(3) NOT NULL,
   `subarea_id` int(3) NOT NULL,
-  `group_name` varchar(120) NOT NULL,
+  `groupOrder` int(11) NOT NULL,
+  `data` varchar(120) NOT NULL,
+  `ora` varchar(120) NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Salvarea datelor din tabel `groups`
+--
+
+INSERT INTO `groups` (`id`, `training_id`, `trainer_id`, `area_id`, `subarea_id`, `groupOrder`, `data`, `ora`, `created_at`, `updated_at`) VALUES
+(1, 1, 7, 2, 0, 1, '10/12/2016', '12:00', '2016-01-07', '2016-01-07');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `questions`
+-- Structura de tabel pentru tabelul `questions`
 --
 
 CREATE TABLE `questions` (
@@ -125,7 +134,7 @@ CREATE TABLE `questions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `responses`
+-- Structura de tabel pentru tabelul `responses`
 --
 
 CREATE TABLE `responses` (
@@ -140,7 +149,7 @@ CREATE TABLE `responses` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Structura de tabel pentru tabelul `roles`
 --
 
 CREATE TABLE `roles` (
@@ -151,7 +160,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `roles`
+-- Salvarea datelor din tabel `roles`
 --
 
 INSERT INTO `roles` (`id`, `role`, `created_at`, `updated_at`) VALUES
@@ -163,7 +172,7 @@ INSERT INTO `roles` (`id`, `role`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sponsors`
+-- Structura de tabel pentru tabelul `sponsors`
 --
 
 CREATE TABLE `sponsors` (
@@ -178,7 +187,7 @@ CREATE TABLE `sponsors` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `subareas`
+-- Structura de tabel pentru tabelul `subareas`
 --
 
 CREATE TABLE `subareas` (
@@ -193,7 +202,7 @@ CREATE TABLE `subareas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `subareas`
+-- Salvarea datelor din tabel `subareas`
 --
 
 INSERT INTO `subareas` (`id`, `area_id`, `title`, `description`, `icon`, `link`, `created_at`, `updated_at`) VALUES
@@ -203,7 +212,7 @@ INSERT INTO `subareas` (`id`, `area_id`, `title`, `description`, `icon`, `link`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `trainings`
+-- Structura de tabel pentru tabelul `trainings`
 --
 
 CREATE TABLE `trainings` (
@@ -219,10 +228,17 @@ CREATE TABLE `trainings` (
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Salvarea datelor din tabel `trainings`
+--
+
+INSERT INTO `trainings` (`id`, `trainer_id`, `name`, `description`, `image`, `area_id`, `subarea_id`, `locuri`, `created_at`, `updated_at`) VALUES
+(1, 7, 'Test training', 'dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa ', 'images/d.jpg', 2, 0, 30, '2016-01-07', '2016-01-07');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Structura de tabel pentru tabelul `users`
 --
 
 CREATE TABLE `users` (
@@ -239,7 +255,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `users`
+-- Salvarea datelor din tabel `users`
 --
 
 INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `email`, `adress`, `phone`, `created_at`, `updated_at`, `remember_token`) VALUES
@@ -346,7 +362,7 @@ ALTER TABLE `areas`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `questions`
 --
@@ -376,7 +392,7 @@ ALTER TABLE `subareas`
 -- AUTO_INCREMENT for table `trainings`
 --
 ALTER TABLE `trainings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `users`
 --
