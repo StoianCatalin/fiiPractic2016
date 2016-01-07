@@ -34,7 +34,7 @@
                                 <option data-type="arie" value="{{$area['id']}}">{{$area['title']}}</option>
                                 @if(count($area->subareas))
                                     @foreach($area->subareas as $subarea)
-                                        <option data-type="arie" value="{{$subarea['id']}}">{{$subarea['title']}}</option>
+                                        <option data-type="subarie" value="{{$subarea['id']}}">{{$subarea['title']}}</option>
                                     @endforeach
                                 @endif
                             @endforeach

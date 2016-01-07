@@ -133,5 +133,6 @@ $(document).on('click', '.maiTraziu', function() {
 var idIntrebari = 1;
 $(document).on('click', '.adaugaIntrebare', function() {
     idIntrebari++;
-    $('.intrebariFields').append('<div class="field"><label>Intrebare '+ idIntrebari +'</label><input placeholder="Intrebare '+ idIntrebari +'" type="text"></div><div class="clearfloat"></div>');
+    $('.intrebariFields').append('<div class="field"><label>Intrebare '+ idIntrebari +'</label><input placeholder="Intrebare '+ idIntrebari +'" type="text" name="intrebare'+ idIntrebari +'"></div><div class="clearfloat"></div>');
+    return false;
 });
