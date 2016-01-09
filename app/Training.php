@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Training extends Model
 {
+    public function applicants() {
+        return $this->hasMany('App\Applicant');
+    }
     public function groups()
     {
         return $this->hasMany('App\Group');
