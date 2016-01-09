@@ -88,6 +88,31 @@ class TrainingController extends Controller
         }
         else return $data['areaType'];
     }
+    public function addGroup(Request $request) {
+        $data = array(
+            'id' => $request->input('id'),
+            'ziua' => $request->input('ziua'),
+            'ora' => $request->input('ora')
+        );
+        $rules = array(
+            'id' => 'exists:trainings,id',
+            'ziua' => 'required',
+            'ora' => 'required'
+        );
+        $validator = Validator::make($data, $rules);
+        if (!$validator->fails()){
+            $training = Training::find($data['id']);
+            $group = new Group();
+            $group->training_id = $data['id'];
+            $group->trainer_id = $training->trainer_id;
+            $group->area_id = $training->area_id;
+            $group->subarea_id = $training->subarea_id;
+            $group->data = $data['ziua'];
+            $group->ora = $data['ora'];
+            $group->save();
+            return redirect('/trainer');
+        }
+    }
     private function generateRandomString($length = 10) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
