@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 07 Ian 2016 la 10:12
+-- Generation Time: 09 Ian 2016 la 16:44
 -- Versiune server: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -42,20 +42,6 @@ CREATE TABLE `applicants` (
 INSERT INTO `applicants` (`id`, `user_id`, `training_id`, `trainer_id`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 1, '2016-01-03', '2016-01-03'),
 (2, 2, 1, 2, '2016-01-28', '2016-01-06');
-
--- --------------------------------------------------------
-
---
--- Structura de tabel pentru tabelul `applicant_group`
---
-
-CREATE TABLE `applicant_group` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `group_id` int(3) NOT NULL,
-  `applicant_id` int(3) NOT NULL,
-  `created_at` date NOT NULL,
-  `updated_at` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -104,6 +90,7 @@ CREATE TABLE `groups` (
   `groupOrder` int(11) NOT NULL,
   `data` varchar(120) NOT NULL,
   `ora` varchar(120) NOT NULL,
+  `count` int(11) NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -112,8 +99,12 @@ CREATE TABLE `groups` (
 -- Salvarea datelor din tabel `groups`
 --
 
-INSERT INTO `groups` (`id`, `training_id`, `trainer_id`, `area_id`, `subarea_id`, `groupOrder`, `data`, `ora`, `created_at`, `updated_at`) VALUES
-(1, 1, 7, 2, 0, 1, '10/12/2016', '12:00', '2016-01-07', '2016-01-07');
+INSERT INTO `groups` (`id`, `training_id`, `trainer_id`, `area_id`, `subarea_id`, `groupOrder`, `data`, `ora`, `count`, `created_at`, `updated_at`) VALUES
+(1, 1, 7, 2, 0, 1, '10/12/2016', '12:00', 0, '2016-01-07', '2016-01-07'),
+(2, 2, 7, 3, 1, 1, '12/11/2016', '12:00', 0, '2016-01-07', '2016-01-07'),
+(3, 3, 7, 4, 0, 1, '12/11/2016', '17:00', 0, '2016-01-07', '2016-01-07'),
+(4, 4, 7, 6, 0, 1, '12/02/2016', '12:00', 0, '2016-01-07', '2016-01-07'),
+(9, 1, 7, 2, 0, 0, '12/02/2016', '12:00', 0, '2016-01-09', '2016-01-09');
 
 -- --------------------------------------------------------
 
@@ -130,6 +121,17 @@ CREATE TABLE `questions` (
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Salvarea datelor din tabel `questions`
+--
+
+INSERT INTO `questions` (`id`, `training_id`, `question`, `posted_by`, `required`, `created_at`, `updated_at`) VALUES
+(1, 4, 'dsadsa dsa dsa dsa d?', 7, 1, '2016-01-07', '2016-01-07'),
+(2, 4, 'dsadsa dsa dsa dsa d?', 7, 1, '2016-01-07', '2016-01-07'),
+(3, 4, 'dsadsa dsa dsa dsa d?', 7, 1, '2016-01-07', '2016-01-07'),
+(4, 4, 'dsadsa dsa dsa dsa d?', 7, 1, '2016-01-07', '2016-01-07'),
+(5, 4, 'dsadsa dsa dsa dsa d?', 7, 1, '2016-01-07', '2016-01-07');
 
 -- --------------------------------------------------------
 
@@ -233,7 +235,10 @@ CREATE TABLE `trainings` (
 --
 
 INSERT INTO `trainings` (`id`, `trainer_id`, `name`, `description`, `image`, `area_id`, `subarea_id`, `locuri`, `created_at`, `updated_at`) VALUES
-(1, 7, 'Test training', 'dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa ', 'images/d.jpg', 2, 0, 30, '2016-01-07', '2016-01-07');
+(1, 7, 'Test training', 'dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa ', 'images/d.jpg', 2, 0, 30, '2016-01-07', '2016-01-07'),
+(2, 7, 'dsadsadsadsa dsa dsa dsa', 'das dsa dsadsadsadsa dsa dsa dsadsadsadsadsa dsa dsa dsadsadsadsadsa dsa dsa dsadsadsadsadsa dsa dsa dsa', 'images/ZaARdNrQU9.jpg', 3, 1, 30, '2016-01-07', '2016-01-07'),
+(3, 7, 'Training with multiple questions', 'Training with multiple questionsTraining with multiple questionsTraining with multiple questionsTraining with multiple questionsTraining with multiple questionsTraining with multiple questionsTraining with multiple questions', 'images/DcKdnCPLbl.jpg', 4, 0, 30, '2016-01-07', '2016-01-07'),
+(4, 7, 'Training with multiple questions 2', 'Training with multiple questions 2 Training with multiple questions 2 Training with multiple questions 2 Training with multiple questions 2', 'images/KyyXMpP1jP.jpg', 6, 0, 30, '2016-01-07', '2016-01-07');
 
 -- --------------------------------------------------------
 
@@ -262,6 +267,20 @@ INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `email`, `adress`,
 (7, 3, 'Stoian Catalin', '$2y$10$Lc4tBmnzR0MSVBozKswNvOz4liiq0qeIYJyhVP0e5yuCin/d480PO', 'stoian.ioan.catalin@gmail.com', 'Lozoveni', '0754312343', '2016-01-01', '2016-01-01', 'qggviIidDI1Vapp92sMcuP04yh8FXsQsaBJoqmLoCtJ97soCiWmtNDleq7Fb'),
 (8, 3, 'Bogatu Ion', '$2y$10$2ChaKaGOQyFTo1/xjq0FfOnAPmPoXeME4if/yLEsfmuXu6qwLW5MC', 'ionbogatu@gmail.com', 'Lorem ipsum', '0751234567', '2016-01-01', '2016-01-02', '11E8t3xRNwQjcJVxFKF3Yn680TcOHFNUD9B4TKEnapA8C8ns9S2wh2DWvMip');
 
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `user_group`
+--
+
+CREATE TABLE `user_group` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `group_id` int(3) NOT NULL,
+  `user_id` int(3) NOT NULL,
+  `created_at` date NOT NULL,
+  `updated_at` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Indexes for dumped tables
 --
@@ -271,13 +290,6 @@ INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `email`, `adress`,
 --
 ALTER TABLE `applicants`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `applicant_group`
---
-ALTER TABLE `applicant_group`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `areas`
@@ -340,6 +352,13 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `id` (`id`);
 
 --
+-- Indexes for table `user_group`
+--
+ALTER TABLE `user_group`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -349,11 +368,6 @@ ALTER TABLE `users`
 ALTER TABLE `applicants`
   MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `applicant_group`
---
-ALTER TABLE `applicant_group`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT for table `areas`
 --
 ALTER TABLE `areas`
@@ -362,12 +376,12 @@ ALTER TABLE `areas`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `responses`
 --
@@ -392,12 +406,17 @@ ALTER TABLE `subareas`
 -- AUTO_INCREMENT for table `trainings`
 --
 ALTER TABLE `trainings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `user_group`
+--
+ALTER TABLE `user_group`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
