@@ -9,8 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Area;
 use App\Subarea;
 use App\Training;
-use
-    Auth;
+use Auth;
 
 class ViewController extends Controller
 {
@@ -29,7 +28,7 @@ class ViewController extends Controller
         $this->info['title'] = "Login and Register | " . $this->info['title'];
         return view('pages.login', ['info'=>$this->info]);
     }
-    public function trainings($area = null) {
+    public function trainings() {
         $this->info['namespace'] = "trainings";
         if (isset($area)) {
             $this->info['selectedArea'] = Area::where('link', $area)->first();
@@ -42,6 +41,15 @@ class ViewController extends Controller
         $this->info['title'] = "Training-uri | " . $this->info['title'];
         $this->info['arii'] = Area::all();
         return view('pages.trainings', ['info'=>$this->info]);
+    }
+    public function training($training = null) {
+        $this->info['namespace'] = "trainings";
+        if (isset($training)) {
+            $this->info['selectedTraining'] = Training::where('link', $training)->first();
+        }else {
+            $info['selectedTraining'] = "";
+        }
+        return view('pages.training', ['info'=>$this->info]);
     }
     public function arii() {
         $this->info['namespace'] = "arii";
