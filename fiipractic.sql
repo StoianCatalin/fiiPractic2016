@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 09 Ian 2016 la 16:44
--- Versiune server: 10.1.9-MariaDB
--- PHP Version: 5.6.15
+-- Generation Time: Jan 11, 2016 at 03:04 AM
+-- Server version: 10.1.8-MariaDB
+-- PHP Version: 5.6.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `fiipractic`
+-- Database: `fiipractic_2`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structura de tabel pentru tabelul `applicants`
+-- Table structure for table `applicants`
 --
 
 CREATE TABLE `applicants` (
@@ -35,18 +35,10 @@ CREATE TABLE `applicants` (
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Salvarea datelor din tabel `applicants`
---
-
-INSERT INTO `applicants` (`id`, `user_id`, `training_id`, `trainer_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, '2016-01-03', '2016-01-03'),
-(2, 2, 1, 2, '2016-01-28', '2016-01-06');
-
 -- --------------------------------------------------------
 
 --
--- Structura de tabel pentru tabelul `areas`
+-- Table structure for table `areas`
 --
 
 CREATE TABLE `areas` (
@@ -61,7 +53,7 @@ CREATE TABLE `areas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Salvarea datelor din tabel `areas`
+-- Dumping data for table `areas`
 --
 
 INSERT INTO `areas` (`id`, `subareas_count`, `description`, `title`, `icon`, `link`, `created_at`, `updated_at`) VALUES
@@ -78,12 +70,11 @@ INSERT INTO `areas` (`id`, `subareas_count`, `description`, `title`, `icon`, `li
 -- --------------------------------------------------------
 
 --
--- Structura de tabel pentru tabelul `groups`
+-- Table structure for table `groups`
 --
 
 CREATE TABLE `groups` (
   `id` int(3) NOT NULL,
-  `training_id` int(3) NOT NULL,
   `trainer_id` int(3) NOT NULL,
   `area_id` int(3) NOT NULL,
   `subarea_id` int(3) NOT NULL,
@@ -95,21 +86,10 @@ CREATE TABLE `groups` (
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Salvarea datelor din tabel `groups`
---
-
-INSERT INTO `groups` (`id`, `training_id`, `trainer_id`, `area_id`, `subarea_id`, `groupOrder`, `data`, `ora`, `count`, `created_at`, `updated_at`) VALUES
-(1, 1, 7, 2, 0, 1, '10/12/2016', '12:00', 0, '2016-01-07', '2016-01-07'),
-(2, 2, 7, 3, 1, 1, '12/11/2016', '12:00', 0, '2016-01-07', '2016-01-07'),
-(3, 3, 7, 4, 0, 1, '12/11/2016', '17:00', 0, '2016-01-07', '2016-01-07'),
-(4, 4, 7, 6, 0, 1, '12/02/2016', '12:00', 0, '2016-01-07', '2016-01-07'),
-(9, 1, 7, 2, 0, 0, '12/02/2016', '12:00', 0, '2016-01-09', '2016-01-09');
-
 -- --------------------------------------------------------
 
 --
--- Structura de tabel pentru tabelul `questions`
+-- Table structure for table `questions`
 --
 
 CREATE TABLE `questions` (
@@ -123,7 +103,7 @@ CREATE TABLE `questions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Salvarea datelor din tabel `questions`
+-- Dumping data for table `questions`
 --
 
 INSERT INTO `questions` (`id`, `training_id`, `question`, `posted_by`, `required`, `created_at`, `updated_at`) VALUES
@@ -136,7 +116,7 @@ INSERT INTO `questions` (`id`, `training_id`, `question`, `posted_by`, `required
 -- --------------------------------------------------------
 
 --
--- Structura de tabel pentru tabelul `responses`
+-- Table structure for table `responses`
 --
 
 CREATE TABLE `responses` (
@@ -151,7 +131,7 @@ CREATE TABLE `responses` (
 -- --------------------------------------------------------
 
 --
--- Structura de tabel pentru tabelul `roles`
+-- Table structure for table `roles`
 --
 
 CREATE TABLE `roles` (
@@ -162,7 +142,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Salvarea datelor din tabel `roles`
+-- Dumping data for table `roles`
 --
 
 INSERT INTO `roles` (`id`, `role`, `created_at`, `updated_at`) VALUES
@@ -174,7 +154,7 @@ INSERT INTO `roles` (`id`, `role`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structura de tabel pentru tabelul `sponsors`
+-- Table structure for table `sponsors`
 --
 
 CREATE TABLE `sponsors` (
@@ -189,7 +169,7 @@ CREATE TABLE `sponsors` (
 -- --------------------------------------------------------
 
 --
--- Structura de tabel pentru tabelul `subareas`
+-- Table structure for table `subareas`
 --
 
 CREATE TABLE `subareas` (
@@ -204,7 +184,7 @@ CREATE TABLE `subareas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Salvarea datelor din tabel `subareas`
+-- Dumping data for table `subareas`
 --
 
 INSERT INTO `subareas` (`id`, `area_id`, `title`, `description`, `icon`, `link`, `created_at`, `updated_at`) VALUES
@@ -214,36 +194,42 @@ INSERT INTO `subareas` (`id`, `area_id`, `title`, `description`, `icon`, `link`,
 -- --------------------------------------------------------
 
 --
--- Structura de tabel pentru tabelul `trainings`
+-- Table structure for table `trainings`
 --
 
 CREATE TABLE `trainings` (
   `id` int(11) NOT NULL,
-  `trainer_id` int(3) NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
   `area_id` int(11) NOT NULL,
   `subarea_id` int(11) NOT NULL,
+  `link` varchar(255) NOT NULL,
   `locuri` int(11) NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Salvarea datelor din tabel `trainings`
+-- Dumping data for table `trainings`
 --
 
-INSERT INTO `trainings` (`id`, `trainer_id`, `name`, `description`, `image`, `area_id`, `subarea_id`, `locuri`, `created_at`, `updated_at`) VALUES
-(1, 7, 'Test training', 'dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa dsadsa dsa dsa dsa ', 'images/d.jpg', 2, 0, 30, '2016-01-07', '2016-01-07'),
-(2, 7, 'dsadsadsadsa dsa dsa dsa', 'das dsa dsadsadsadsa dsa dsa dsadsadsadsadsa dsa dsa dsadsadsadsadsa dsa dsa dsadsadsadsadsa dsa dsa dsa', 'images/ZaARdNrQU9.jpg', 3, 1, 30, '2016-01-07', '2016-01-07'),
-(3, 7, 'Training with multiple questions', 'Training with multiple questionsTraining with multiple questionsTraining with multiple questionsTraining with multiple questionsTraining with multiple questionsTraining with multiple questionsTraining with multiple questions', 'images/DcKdnCPLbl.jpg', 4, 0, 30, '2016-01-07', '2016-01-07'),
-(4, 7, 'Training with multiple questions 2', 'Training with multiple questions 2 Training with multiple questions 2 Training with multiple questions 2 Training with multiple questions 2', 'images/KyyXMpP1jP.jpg', 6, 0, 30, '2016-01-07', '2016-01-07');
+INSERT INTO `trainings` (`id`, `name`, `description`, `image`, `area_id`, `subarea_id`, `link`, `locuri`, `created_at`, `updated_at`) VALUES
+(1, 'Android Pro', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc mauris sapien, tristique at odio et, porttitor feugiat leo. Curabitur aliquam luctus sem vel scelerisque. Integer dignissim nisl quis ornare commodo. Maecenas eros eros, mattis ac magna in, elementum sagittis sem. Aenean consectetur auctor scelerisque.', 'icon-androidpro', 1, 0, 'android-pro', 35, '2016-01-11', '2016-01-11'),
+(2, 'Frontend', 'Lorem ipsum dolor sit amet', 'icon-frontend', 2, 0, 'front-end-development', 35, '2016-01-11', '2016-01-11'),
+(3, 'PHP', 'Lorem ipsum dolor sit amet', 'icon-backend', 3, 1, 'php', 35, '2016-01-11', '2016-01-11'),
+(4, 'Java', 'Lorem ipsum dolor sit amet', 'icon-backend', 3, 2, 'java', 35, '2016-01-11', '2016-01-11'),
+(5, 'Design Grafic', 'Lorem ipsum dolor sit amet', 'icon-designgraphic', 4, 0, 'design-graphic', 35, '2016-01-11', '2016-01-11'),
+(6, 'Game Development', 'Lorem ipsum dolor sit amet', 'icon-gamedev', 5, 0, 'game-development', 35, '2016-01-11', '2016-01-11'),
+(7, 'DevOps', 'Lorem ipsum dolor sit amet', 'icon-devops', 6, 0, 'devops', 35, '2016-01-11', '2016-01-11'),
+(8, 'Project Management', 'Lorem ipsum dolor sit amet', 'icon-project', 7, 0, 'project-management', 35, '2016-01-11', '2016-01-11'),
+(9, 'Communication skills', 'Lorem ipsum dolor sit amet', 'icon-communication', 8, 0, 'communication-skills', 35, '2016-01-11', '2016-01-11'),
+(10, 'Management Antreprenorial', 'Lorem ipsum dolor sit amet', 'icon-management', 9, 0, 'management-antreprenorial', 35, '2016-01-11', '2016-01-11');
 
 -- --------------------------------------------------------
 
 --
--- Structura de tabel pentru tabelul `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -260,7 +246,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Salvarea datelor din tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `email`, `adress`, `phone`, `created_at`, `updated_at`, `remember_token`) VALUES
@@ -270,7 +256,7 @@ INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `email`, `adress`,
 -- --------------------------------------------------------
 
 --
--- Structura de tabel pentru tabelul `user_group`
+-- Table structure for table `user_group`
 --
 
 CREATE TABLE `user_group` (
@@ -366,7 +352,7 @@ ALTER TABLE `user_group`
 -- AUTO_INCREMENT for table `applicants`
 --
 ALTER TABLE `applicants`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `areas`
 --
@@ -376,7 +362,7 @@ ALTER TABLE `areas`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `questions`
 --
@@ -406,7 +392,7 @@ ALTER TABLE `subareas`
 -- AUTO_INCREMENT for table `trainings`
 --
 ALTER TABLE `trainings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `users`
 --
