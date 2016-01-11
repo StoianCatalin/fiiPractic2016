@@ -30,10 +30,12 @@
                         Training-urile mele
                         <i class="icon puzzle"></i>
                     </a>
+                    <!--
                     <a href="/trainer/add-training" class="item">
                         Adauga Training
                         <i class="icon write"></i>
                     </a>
+                    -->
                     <a href="/" class="item">
                         Inapoi la website
                         <i class="icon world"></i>
@@ -66,6 +68,37 @@
         <div class="ui approve green button">
             <i class="checkmark icon"></i>
             Da
+        </div>
+    </div>
+</div>
+<div class="ui modal adaugaGrupaModal">
+    <i class="close icon"></i>
+    <div class="image content">
+        <div class="description">
+            <form class="ui form addGroupForm" action="/requests/addGroup" method="post">
+                <div class="ui fields">
+                    <input type="hidden" name="id" value="" />
+                    <input type="hidden" name="_token" value="{{csrf_token()}}" />
+                    <div class="eight wide field">
+                        <label>Ziua</label>
+                        <input placeholder="Trebuie sa respecte urmatorul format: dd/mm/yyyy" type="text" name="ziua">
+                    </div>
+                    <div class="eight wide field">
+                        <label>Ora</label>
+                        <input placeholder="Trebuie sa respecte urmatorul format: hh/mm" type="text" name="ora">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui cancel red button">
+            <i class="remove icon"></i>
+            Renunta
+        </div>
+        <div class="ui green button submitForm">
+            <i class="checkmark icon"></i>
+            Adauga
         </div>
     </div>
 </div>

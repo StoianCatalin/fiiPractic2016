@@ -61,12 +61,13 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::get('/trainer', ['middleware'=>'trainerAuth', 'uses'=>'ViewController@trainerIndex']);
-    Route::get('/trainer/add-training', ['middleware'=>'trainerAuth', 'uses'=>'ViewController@trainerAdd']);
+    //Route::get('/trainer/add-training', ['middleware'=>'trainerAuth', 'uses'=>'ViewController@trainerAdd']);
     Route::get('/trainer/selectParticipants/{id}', ['middleware'=>'trainerAuth', 'uses'=>'ViewController@trainerSelect']);
 
 
     Route::post('/requests/register', 'AccountController@registerAccount');
     Route::post('/requests/login', 'AccountController@login');
+    Route::post('/requests/addGroup', 'TrainingController@addGroup');
     Route::post('/requests/trainer/addTraining', ['middleware'=>'trainerAuth', 'uses'=>'TrainingController@addTraining']);
     Route::post('/requests/update', 'AccountController@updateUserInfo');
     Route::get('images/{filename}', function ($filename)

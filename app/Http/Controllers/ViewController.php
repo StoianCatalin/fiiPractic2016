@@ -8,6 +8,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Area;
 use App\Subarea;
+use App\Training;
+use
+    Auth;
 
 class ViewController extends Controller
 {
@@ -81,6 +84,7 @@ class ViewController extends Controller
     }
     public function trainerIndex() {
         $this->info['namespace'] = "trainerIndex";
+        $this->info['trainings'] = Training::where('trainer_id', Auth::user()->id)->get();
         $this->info['title'] = "Trainer Panel | " . $this->info['title'];
         return view('trainerPages.home', ['info'=>$this->info]);
     }
@@ -92,8 +96,14 @@ class ViewController extends Controller
     }
     public function trainerSelect($id) {
         //$id is id of training.
-        $this->info['namespace'] = "trainerIndex";
-        $this->info['title'] = "Selecteaza Participanti | " . $this->info['title'];
-        return view('trainerPages.select', ['info'=>$this->info]);
+        $this->info['training'] = Training::find($id);
+        if ($this->info['training']->trainer_id == Auth::user()->id) {
+            $this->info['namespace'] = "trainerIndex";
+            $this->info['title'] = "Selecteaza Participanti | " . $this->info['title'];
+            return view('trainerPages.select', ['info'=>$this->info]);
+        }
+        else {
+            return redirect('/trainer');
+        }
     }
 }

@@ -136,3 +136,19 @@ $(document).on('click', '.adaugaIntrebare', function() {
     $('.intrebariFields').append('<div class="field"><label>Intrebare '+ idIntrebari +'</label><input placeholder="Intrebare '+ idIntrebari +'" type="text" name="intrebare'+ idIntrebari +'"></div><div class="clearfloat"></div>');
     return false;
 });
+$(document).on('click', '.addGroup', function() {
+    var id = $(this).attr('data-id');
+    $('.adaugaGrupaModal input[name=id]').val(id);
+    $('.adaugaGrupaModal').modal('show');
+});
+$(document).on('click', '.adaugaGrupaModal .submitForm', function() {
+    if ($('.addGroupForm .field.error').length == 0)
+        $('.addGroupForm').submit();
+    else return false;
+});
+$('.addGroupForm').form({
+    fields: {
+        ziua : ['empty', 'regExp[/[0-9]{2}/[0-9]{2}/[0-9]{4}$/]'],
+        ora : ['empty', 'regExp[/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/]']
+    }
+});
