@@ -1,5 +1,4 @@
-@extends('app')
-@section('content')
+<?php $__env->startSection('content'); ?>
     <section id="top" class="nonIndex">
         <div class="ui container">
             <div class="ui stackable grid">
@@ -15,9 +14,9 @@
     </section>
     <section id="despre">
         <div class="ui container">
-            @if (isset($info['selectedArea']))
-            <p>{{$info['selectedArea']['description']}}</p>
-            @endif
+            <?php if(isset($info['selectedArea'])): ?>
+            <p><?php echo e($info['selectedArea']['description']); ?></p>
+            <?php endif; ?>
             <h2 class="ui header">Gaseste training-uri dupa preferinte</h2>
             <div class="ui form">
                 <div class="fields">
@@ -30,14 +29,14 @@
                     <div class="eight wide field">
                         <select class="ui search dropdown selectArie">
                             <option value="">Arii de studiu...</option>
-                            @foreach($info['arii'] as $area)
-                                <option data-type="arie" value="{{$area['id']}}">{{$area['title']}}</option>
-                                @if(count($area->subareas))
-                                    @foreach($area->subareas as $subarea)
-                                        <option data-type="subarie" value="{{$subarea['id']}}">{{$subarea['title']}}</option>
-                                    @endforeach
-                                @endif
-                            @endforeach
+                            <?php foreach($info['arii'] as $area): ?>
+                                <option data-type="arie" value="<?php echo e($area['id']); ?>"><?php echo e($area['title']); ?></option>
+                                <?php if(count($area->subareas)): ?>
+                                    <?php foreach($area->subareas as $subarea): ?>
+                                        <option data-type="subarie" value="<?php echo e($subarea['id']); ?>"><?php echo e($subarea['title']); ?></option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                 </div>
@@ -186,4 +185,5 @@
             </div>
         </div>
     </section>
- @endsection
+ <?php $__env->stopSection(); ?>
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

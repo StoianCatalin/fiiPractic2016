@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('semantic/semantic.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/arii.css') }}">
     <!--[if IE 7]><link rel="stylesheet" href="{{ asset('css/arii-ie7.css') }}"><![endif]-->
+    <link rel="stylesheet" href="{{ asset('css/traininguri.css') }}">
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
