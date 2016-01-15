@@ -12,6 +12,11 @@ $(document).on('click', '.loginIndividual .submit', function() {
                 setTimeout(function() {
                     window.location.href="/";
                 }, 3000);
+            }else if (data=="Logare efectuata cu succes!"){
+                $('.loginIndividual .message.success').html(data);
+                setTimeout(function() {
+                    window.location.href="/trainer";
+                }, 3000);
             }
             else {
                 $('.loginIndividual .message.warning').html(data);

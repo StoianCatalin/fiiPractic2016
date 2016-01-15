@@ -56,7 +56,11 @@ class AccountController extends Controller
             'password' => $request->input('password')
         );
         if (Auth::attempt($info, true)) {
-            return "Logare efectuata cu success!";
+            if(Auth::user()->role_id === 3){
+                return "Logare efectuata cu succes!";
+            }else{
+                return "Logare efectuata cu success!";
+            }
         }
         else return "Email sau parola incorecte!";
     }
