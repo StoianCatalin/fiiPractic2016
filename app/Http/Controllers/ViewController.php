@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Area;
 use App\Subarea;
 use App\Training;
+use App\Group;
+use App\User;
 use Auth;
 
 class ViewController extends Controller
@@ -92,7 +94,12 @@ class ViewController extends Controller
     }
     public function trainerIndex() {
         $this->info['namespace'] = "trainerIndex";
-        $this->info['trainings'] = Training::where('trainer_id', Auth::user()->id)->get();
+        $groups = Group::where('trainer_id', Auth::user()->id)->get(['area_id', 'subarea_id', 'count']);
+        foreach($groups as $group){
+            $this->info['group_count'] = $group->count;
+            $this->info['trainings'] = Training::where('area_id', $group->area_id)->where('subarea_id', $group->subarea_id)->get();
+        }
+        //$this->info['trainings'] = Training::where('area_id', $area_id)->where('subarea_id', $subarea_id)->get();
         $this->info['title'] = "Trainer Panel | " . $this->info['title'];
         return view('trainerPages.home', ['info'=>$this->info]);
     }

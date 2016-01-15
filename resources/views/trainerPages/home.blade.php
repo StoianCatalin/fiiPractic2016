@@ -24,7 +24,7 @@
                             $number += $group->users()->count();
                         }
                         ?>
-                        <td>{{$number}}/{{$training->groups()->count() * 30}}</td>
+                        <td>{{$number}}/{{$info['group_count']}}</td>
                         <td>
                             <div class="ui icon buttons trainBut">
                                 <!-- <button data-id="1" data-content="Sterge Training" class="ui button stergeTrainButt"><i class="icon delete"></i></button> -->
