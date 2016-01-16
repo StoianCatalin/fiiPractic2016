@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 11, 2016 at 03:04 AM
+-- Generation Time: Jan 16, 2016 at 05:57 PM
 -- Server version: 10.1.8-MariaDB
 -- PHP Version: 5.6.14
 
@@ -34,6 +34,13 @@ CREATE TABLE `applicants` (
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `applicants`
+--
+
+INSERT INTO `applicants` (`id`, `user_id`, `training_id`, `trainer_id`, `created_at`, `updated_at`) VALUES
+(1, 8, 3, 0, '2016-01-16', '2016-01-16');
 
 -- --------------------------------------------------------
 
@@ -75,9 +82,9 @@ INSERT INTO `areas` (`id`, `subareas_count`, `description`, `title`, `icon`, `li
 
 CREATE TABLE `groups` (
   `id` int(3) NOT NULL,
+  `training_id` int(3) NOT NULL,
   `trainer_id` int(3) NOT NULL,
-  `area_id` int(3) NOT NULL,
-  `subarea_id` int(3) NOT NULL,
+  `group_name` varchar(60) NOT NULL,
   `groupOrder` int(11) NOT NULL,
   `data` varchar(120) NOT NULL,
   `ora` varchar(120) NOT NULL,
@@ -85,6 +92,13 @@ CREATE TABLE `groups` (
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `groups`
+--
+
+INSERT INTO `groups` (`id`, `training_id`, `trainer_id`, `group_name`, `groupOrder`, `data`, `ora`, `count`, `created_at`, `updated_at`) VALUES
+(1, 3, 8, 'PHP A1', 1, '20/02/2016', '10:00', 35, '2016-01-15', '2016-01-15');
 
 -- --------------------------------------------------------
 
@@ -107,11 +121,10 @@ CREATE TABLE `questions` (
 --
 
 INSERT INTO `questions` (`id`, `training_id`, `question`, `posted_by`, `required`, `created_at`, `updated_at`) VALUES
-(1, 4, 'dsadsa dsa dsa dsa d?', 7, 1, '2016-01-07', '2016-01-07'),
-(2, 4, 'dsadsa dsa dsa dsa d?', 7, 1, '2016-01-07', '2016-01-07'),
-(3, 4, 'dsadsa dsa dsa dsa d?', 7, 1, '2016-01-07', '2016-01-07'),
-(4, 4, 'dsadsa dsa dsa dsa d?', 7, 1, '2016-01-07', '2016-01-07'),
-(5, 4, 'dsadsa dsa dsa dsa d?', 7, 1, '2016-01-07', '2016-01-07');
+(6, 3, 'lorem ipsum dolor sit amet?', 8, 1, '2016-01-16', '2016-01-16'),
+(7, 3, 'Lorem ipsum dolor sit met?', 8, 1, '2016-01-16', '2016-01-16'),
+(8, 3, 'Lorem ipsum dolor sit amet?', 8, 1, '2016-01-16', '2016-01-16'),
+(9, 4, 'Lorem ipsum dolor sit amet?', 8, 0, '2016-01-16', '2016-01-16');
 
 -- --------------------------------------------------------
 
@@ -127,6 +140,15 @@ CREATE TABLE `responses` (
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `responses`
+--
+
+INSERT INTO `responses` (`id`, `question_id`, `response`, `applicant_id`, `created_at`, `updated_at`) VALUES
+(19, 6, 'raspuns1', 8, '2016-01-16', '2016-01-16'),
+(20, 7, 'raspuns2', 8, '2016-01-16', '2016-01-16'),
+(21, 8, 'raspuns3', 8, '2016-01-16', '2016-01-16');
 
 -- --------------------------------------------------------
 
@@ -251,7 +273,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `email`, `adress`, `phone`, `created_at`, `updated_at`, `remember_token`) VALUES
 (7, 3, 'Stoian Catalin', '$2y$10$Lc4tBmnzR0MSVBozKswNvOz4liiq0qeIYJyhVP0e5yuCin/d480PO', 'stoian.ioan.catalin@gmail.com', 'Lozoveni', '0754312343', '2016-01-01', '2016-01-01', 'qggviIidDI1Vapp92sMcuP04yh8FXsQsaBJoqmLoCtJ97soCiWmtNDleq7Fb'),
-(8, 3, 'Bogatu Ion', '$2y$10$2ChaKaGOQyFTo1/xjq0FfOnAPmPoXeME4if/yLEsfmuXu6qwLW5MC', 'ionbogatu@gmail.com', 'Lorem ipsum', '0751234567', '2016-01-01', '2016-01-02', '11E8t3xRNwQjcJVxFKF3Yn680TcOHFNUD9B4TKEnapA8C8ns9S2wh2DWvMip');
+(8, 3, 'Bogatu Ion', '$2y$10$2ChaKaGOQyFTo1/xjq0FfOnAPmPoXeME4if/yLEsfmuXu6qwLW5MC', 'ionbogatu@gmail.com', 'Lorem ipsum', '0751234567', '2016-01-01', '2016-01-16', 'jD6fyziuHUxx0vTzQmCK8911LN2EXHV7Jd4BycNoI5PowKlsVn49imcNzm1R');
 
 -- --------------------------------------------------------
 
@@ -352,7 +374,7 @@ ALTER TABLE `user_group`
 -- AUTO_INCREMENT for table `applicants`
 --
 ALTER TABLE `applicants`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `areas`
 --
@@ -362,17 +384,17 @@ ALTER TABLE `areas`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `responses`
 --
 ALTER TABLE `responses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `roles`
 --

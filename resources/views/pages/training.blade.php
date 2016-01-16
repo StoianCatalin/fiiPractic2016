@@ -27,12 +27,21 @@
 		<p>{{ $info['selectedTraining']['attributes']['description'] }}</p>
 	</div>
 	<br/>
+    @if ($info['logged'] == 1)
 	<div class="ui container">
-        <a href="#"><div class="ui teal button">
+        <a href="{{ $info['selectedTraining']['attributes']['link'] }}/aplica"><div class="ui teal button">
             <i class="icon send"></i>
             Aplica
         </div></a>
     </div>
+    @elseif ($info['logged'] == 2)
+        <div class="ui container">
+        <a><div class="ui disabled red button">
+            <i class="icon send"></i>
+            Ai aplicat deja la acest training
+        </div></a>
+    </div>
+    @endif
     <br/>
 </section>
 

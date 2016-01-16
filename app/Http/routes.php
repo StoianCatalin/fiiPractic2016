@@ -52,6 +52,7 @@ Route::group(['middleware' => ['web']], function () {
     //Route::get('/trainings/{area?}', 'ViewController@trainings');
     Route::get('/trainings', 'ViewController@trainings');
     Route::get('/trainings/{training}', 'ViewController@training');
+    Route::get('/trainings/{link}/aplica', 'ViewController@apply');
     Route::get('/arii-de-studiu', 'ViewController@arii');
     Route::get('/arii-de-studiu/subarii/{id_arie}', 'ViewController@subarii');
     Route::get('/panou-de-administrare', ['middleware'=>'auth', 'uses'=>'ViewController@panou']);
@@ -84,4 +85,6 @@ Route::group(['middleware' => ['web']], function () {
 
         return $response;
     });
+
+    Route::post('/requests/register/user-responses', 'ApplyController@registerUserResponses');
 });
