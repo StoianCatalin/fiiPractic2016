@@ -94,7 +94,32 @@ $(document).on('click', '.changeAccountInfo .submit', function(){
     }
 });
 
-
+$(document).on('click', '.sendQuestionResponses .submit', function(){
+    if (!$('.sendQuestionResponses').children('.error').length) {
+        $(this).addClass('loading');
+        var responses = new Array();
+        $(".sendQuestionResponses :input").each(function(){
+            var response = new Array();
+            response.push($(this).attr('name'));
+            response.push($(this).val());
+            responses.push(response);
+        });
+        $.post("/requests/register/user-responses", {data: responses}, function(data){
+            $('.sendQuestionResponses .submit').removeClass('loading');
+            if(data == "Datele dvs. au fost preluate!"){
+                $('.sendQuestionResponses .message.success').html(data);
+                setTimeout(function() {
+                    window.location.href="/";
+                }, 3000);
+            }else if(data == "Intrebarile marcate cu * sunt obligatorii!"){
+                $('.sendQuestionResponses .message.warning').html(data);
+                setTimeout(function() {
+                    $('.sendQuestionResponses .message.warning').html("");
+                }, 3000);
+            }
+        });
+    }
+});
 
 //ADMIN REQUESTS! -----------------------------------------------------------------------------------------
 

@@ -6,3 +6,8 @@
 .trainingContent{
 	background: #f9f9f9;
 }
+
+.quizSection{
+	background: #f9f9f9 !important;
+	padding: 20px 0;
+}
